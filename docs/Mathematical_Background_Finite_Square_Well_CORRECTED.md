@@ -1,14 +1,9 @@
-<center>
-
-# Mathematical Background for Finite Square Well Calculations
-
-## Complete Quantum Mechanics Explanation
-
-**Author:** Quantum Design Project  
-**Date:** November 2025  
-**Language:** Julia Implementation
-
-</center>
+---
+title: "Quantum Project PHYS-491"
+subtitle: "Complete Quantum Mechanics Explanation"
+author: "Fernando Delgado and Kendal Trellue"
+date: "November 2025"
+---
 
 ---
 
@@ -295,11 +290,15 @@ These transcendental equations can be visualized as intersections:
 - Odd states occur in intervals $[(n+1/2)\pi, (n+1)\pi]$
 - Number of bound states: $n \approx z_0/\pi$
 
+<center>
 ![](part1_energy_levels.png)
+</center>
 
 **Figure 1:** The graph above shows the transcendental equations for a well depth between V₀ = 23 and V₀ = 400. This confirms that the first three bound states have different increasing energies. It also shows a linear correlation between well depth and energy levels.
 
+<center>
 ![](part1_energy_spacings.png)
+</center>
 
 **Figure 2:** The graph above shows the energy levels and spacings for a well depth between V₀ = 23 and V₀ = 400. The energy spacing shown above confirms the assumption that the energy state difference between E₁ and E₂ does not equal the difference between E₂ and E₃. Each difference eventually asymptotically approaches a constant value as the well depth increases.
 
@@ -444,7 +443,9 @@ for all $V_0$ where three bound states exist.
 
 The ratio **never equals 1** and **never exceeds the infinite well value of 5/3**.
 
+<center>
 ![](part2_energy_ratio.png)
+</center>
 
 **Figure 3:** The graph above shows the ratio of E₂₃ to E₁₂ for well depths ranging from V₀ = 22.21 to V₀ = 2000. The graph confirms that the ratio remains between approximately 1.571 and 1.667, never reaching 1.
 
@@ -589,7 +590,9 @@ This can be satisfied for appropriate choice of $(V_0, d)$.
 - Handles constraints naturally
 - Good for low-dimensional problems (we have 2D)
 
+<center>
 ![](part3_double_well_configuration.png)
+</center>
 
 **Figure 4:** The graph above shows the double finite square well configuration with well depth V₀ and separation distance d. This configuration allows for independent tuning of energy level splittings through the parameter d.
 
@@ -705,7 +708,13 @@ $$
 ### 8.3 Numerical Code for All Three Parts
 
 The Code we made for theis project can be found on the github repository by scanning the QR code below:
-![](<adobe-express-qr-code 2.png>)
+<center>
+![](<assets/adobe-express-qr-code 2.png>){width="150" height="150"}
+
+<center>
+
+
+
 
 
 ---
