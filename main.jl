@@ -28,7 +28,7 @@ println("-"^70)
 # Define range of well depths
 # Need V0 > (3π/2)² ≈ 22.2 for three bound states
 V0_min = 23.0
-V0_max = 2500.0
+V0_max = 400.0
 V0_range = range(V0_min, V0_max, length=1000)
 
 # Compute energy levels
