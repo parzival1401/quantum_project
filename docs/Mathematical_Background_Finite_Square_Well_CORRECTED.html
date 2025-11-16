@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Mathematical_Background_Finite_Square_Well_CORRECTED</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css" />
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a
+href="#mathematical-background-for-finite-square-well-calculations"
+id="toc-mathematical-background-for-finite-square-well-calculations"><span
+class="toc-section-number">1</span> Mathematical Background for Finite
+Square Well Calculations</a>
+<ul>
+<li><a href="#complete-quantum-mechanics-explanation"
+id="toc-complete-quantum-mechanics-explanation"><span
+class="toc-section-number">1.1</span> Complete Quantum Mechanics
+Explanation</a></li>
+<li><a href="#table-of-contents" id="toc-table-of-contents"><span
+class="toc-section-number">1.2</span> Table of Contents</a></li>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1.3</span> 1. Introduction</a></li>
+<li><a href="#equations-background" id="toc-equations-background"><span
+class="toc-section-number">1.4</span> 2. Equations &amp; Background</a>
+<ul>
+<li><a href="#the-finite-square-well-potential"
+id="toc-the-finite-square-well-potential"><span
+class="toc-section-number">1.4.1</span> 2.1 The Finite Square Well
+Potential</a></li>
+<li><a href="#the-time-independent-schrödinger-equation"
+id="toc-the-time-independent-schrödinger-equation"><span
+class="toc-section-number">1.4.2</span> 2.2 The Time-Independent
+Schrödinger Equation</a></li>
+<li><a href="#natural-units" id="toc-natural-units"><span
+class="toc-section-number">1.4.3</span> 2.3 Natural Units</a></li>
+<li><a href="#energy-conversion" id="toc-energy-conversion"><span
+class="toc-section-number">1.4.4</span> 2.4 Energy Conversion</a></li>
+<li><a href="#infinite-well-limit" id="toc-infinite-well-limit"><span
+class="toc-section-number">1.4.5</span> 2.5 Infinite Well Limit</a></li>
+</ul></li>
+<li><a href="#part-1-single-finite-square-well"
+id="toc-part-1-single-finite-square-well"><span
+class="toc-section-number">1.5</span> 3. Part 1: Single Finite Square
+Well</a>
+<ul>
+<li><a href="#question" id="toc-question"><span
+class="toc-section-number">1.5.1</span> 3.1 Question</a></li>
+<li><a href="#potential-configuration"
+id="toc-potential-configuration"><span
+class="toc-section-number">1.5.2</span> 3.2 Potential
+Configuration</a></li>
+<li><a href="#solution-strategy" id="toc-solution-strategy"><span
+class="toc-section-number">1.5.3</span> 3.3 Solution Strategy</a></li>
+<li><a href="#boundary-conditions" id="toc-boundary-conditions"><span
+class="toc-section-number">1.5.4</span> 3.4 Boundary Conditions</a></li>
+<li><a href="#parity-symmetry" id="toc-parity-symmetry"><span
+class="toc-section-number">1.5.5</span> 3.5 Parity Symmetry</a></li>
+<li><a href="#dimensionless-parameters"
+id="toc-dimensionless-parameters"><span
+class="toc-section-number">1.5.6</span> 3.6 Dimensionless
+Parameters</a></li>
+<li><a href="#transcendental-equations"
+id="toc-transcendental-equations"><span
+class="toc-section-number">1.5.7</span> 3.7 Transcendental
+Equations</a></li>
+<li><a href="#derivation-of-transcendental-equations"
+id="toc-derivation-of-transcendental-equations"><span
+class="toc-section-number">1.5.8</span> 3.8 Derivation of Transcendental
+Equations</a></li>
+<li><a href="#graphical-solution-method"
+id="toc-graphical-solution-method"><span
+class="toc-section-number">1.5.9</span> 3.9 Graphical Solution
+Method</a></li>
+<li><a href="#summary-of-part-1" id="toc-summary-of-part-1"><span
+class="toc-section-number">1.5.10</span> 3.10 Summary of Part 1</a></li>
+</ul></li>
+<li><a href="#part-2-mathematical-proof-that-e₁₂-e₂₃-in-single-wells"
+id="toc-part-2-mathematical-proof-that-e₁₂-e₂₃-in-single-wells"><span
+class="toc-section-number">1.6</span> 4. Part 2: Mathematical Proof that
+E₁₂ ≠ E₂₃ in Single Wells</a>
+<ul>
+<li><a href="#question-1" id="toc-question-1"><span
+class="toc-section-number">1.6.1</span> 4.1 Question</a></li>
+<li><a href="#answer-no" id="toc-answer-no"><span
+class="toc-section-number">1.6.2</span> 4.2 Answer: NO</a></li>
+<li><a href="#why-e₂₃-e₁₂-in-single-wells"
+id="toc-why-e₂₃-e₁₂-in-single-wells"><span
+class="toc-section-number">1.6.3</span> 4.3 Why E₂₃ &gt; E₁₂ in Single
+Wells</a></li>
+<li><a href="#mathematical-analysis"
+id="toc-mathematical-analysis"><span
+class="toc-section-number">1.6.4</span> 4.4 Mathematical
+Analysis</a></li>
+<li><a href="#numerical-verification"
+id="toc-numerical-verification"><span
+class="toc-section-number">1.6.5</span> 4.5 Numerical
+Verification</a></li>
+<li><a href="#summary-of-part-2" id="toc-summary-of-part-2"><span
+class="toc-section-number">1.6.6</span> 4.6 Summary of Part 2</a></li>
+</ul></li>
+<li><a href="#part-3-double-finite-square-well"
+id="toc-part-3-double-finite-square-well"><span
+class="toc-section-number">1.7</span> 5. Part 3: Double Finite Square
+Well</a>
+<ul>
+<li><a href="#question-2" id="toc-question-2"><span
+class="toc-section-number">1.7.1</span> 5.1 Question</a></li>
+<li><a href="#potential-configuration-1"
+id="toc-potential-configuration-1"><span
+class="toc-section-number">1.7.2</span> 5.2 Potential
+Configuration</a></li>
+<li><a href="#physical-picture" id="toc-physical-picture"><span
+class="toc-section-number">1.7.3</span> 5.3 Physical Picture</a></li>
+<li><a href="#tight-binding-approximation"
+id="toc-tight-binding-approximation"><span
+class="toc-section-number">1.7.4</span> 5.4 Tight-Binding
+Approximation</a></li>
+<li><a href="#tunneling-matrix-element"
+id="toc-tunneling-matrix-element"><span
+class="toc-section-number">1.7.5</span> 5.5 Tunneling Matrix
+Element</a></li>
+<li><a href="#level-structure" id="toc-level-structure"><span
+class="toc-section-number">1.7.6</span> 5.6 Level Structure</a></li>
+<li><a href="#engineering-energy-ratios"
+id="toc-engineering-energy-ratios"><span
+class="toc-section-number">1.7.7</span> 5.7 Engineering Energy
+Ratios</a></li>
+<li><a href="#optimization-for-double-well"
+id="toc-optimization-for-double-well"><span
+class="toc-section-number">1.7.8</span> 5.8 Optimization for Double
+Well</a></li>
+<li><a href="#summary-of-part-3" id="toc-summary-of-part-3"><span
+class="toc-section-number">1.7.9</span> 5.9 Summary of Part 3</a></li>
+</ul></li>
+<li><a href="#conclusions" id="toc-conclusions"><span
+class="toc-section-number">1.8</span> 6. Conclusions</a></li>
+<li><a href="#extensions-and-applications"
+id="toc-extensions-and-applications"><span
+class="toc-section-number">1.9</span> 7. Extensions and Applications</a>
+<ul>
+<li><a href="#physical-interpretation-of-double-well-molecular-bonding"
+id="toc-physical-interpretation-of-double-well-molecular-bonding"><span
+class="toc-section-number">1.9.1</span> 7.1 Physical Interpretation of
+Double Well: Molecular Bonding</a></li>
+<li><a href="#why-double-wells-enable-engineering"
+id="toc-why-double-wells-enable-engineering"><span
+class="toc-section-number">1.9.2</span> 7.2 Why Double Wells Enable
+Engineering</a></li>
+<li><a href="#real-world-parameters"
+id="toc-real-world-parameters"><span
+class="toc-section-number">1.9.3</span> 7.3 Real-World
+Parameters</a></li>
+</ul></li>
+<li><a href="#appendix-key-equations-summary"
+id="toc-appendix-key-equations-summary"><span
+class="toc-section-number">1.10</span> 8. Appendix: Key Equations
+Summary</a>
+<ul>
+<li><a href="#single-well" id="toc-single-well"><span
+class="toc-section-number">1.10.1</span> 8.1 Single Well</a></li>
+<li><a href="#double-well" id="toc-double-well"><span
+class="toc-section-number">1.10.2</span> 8.2 Double Well</a></li>
+<li><a href="#numerical-code-for-all-three-parts"
+id="toc-numerical-code-for-all-three-parts"><span
+class="toc-section-number">1.10.3</span> 8.3 Numerical Code for All
+Three Parts</a></li>
+</ul></li>
+<li><a href="#references" id="toc-references"><span
+class="toc-section-number">1.11</span> 9. References</a></li>
+</ul></li>
+</ul>
+</nav>
+<center>
+<h1 data-number="1"
+id="mathematical-background-for-finite-square-well-calculations"><span
+class="header-section-number">1</span> Mathematical Background for
+Finite Square Well Calculations</h1>
+<h2 data-number="1.1" id="complete-quantum-mechanics-explanation"><span
+class="header-section-number">1.1</span> Complete Quantum Mechanics
+Explanation</h2>
+<p><strong>Author:</strong> Quantum Design Project<br />
+<strong>Date:</strong> November 2025<br />
+<strong>Language:</strong> Julia Implementation</p>
+</center>
+<hr />
+<h2 data-number="1.2" id="table-of-contents"><span
+class="header-section-number">1.2</span> Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-introduction">Introduction</a></li>
+<li><a href="#2-equations--background">Equations &amp;
+Background</a></li>
+<li><a href="#3-part-1-single-finite-square-well">Part 1: Single Finite
+Square Well</a></li>
+<li><a
+href="#4-part-2-mathematical-proof-that-e₁₂--e₂₃-in-single-wells">Part
+2: Mathematical Proof that E₁₂ ≠ E₂₃ in Single Wells</a></li>
+<li><a href="#5-part-3-double-finite-square-well">Part 3: Double Finite
+Square Well</a></li>
+<li><a href="#6-conclusions">Conclusions</a></li>
+<li><a href="#7-extensions-and-applications">Extensions and
+Applications</a></li>
+<li><a href="#8-appendix-key-equations-summary">Appendix: Key Equations
+Summary</a></li>
+<li><a href="#9-references">References</a></li>
+<li><a href="#10-acknowledgments">Acknowledgments</a></li>
+</ol>
+<hr />
+<h2 data-number="1.3" id="introduction"><span
+class="header-section-number">1.3</span> 1. Introduction</h2>
+<p>This document provides a comprehensive summary of the quantum
+mechanics behind finite square well calculations. We solve the
+time-independent Schrödinger equation for both single and double well
+configurations to find bound state energies. To solve it, we assumed a
+well depth minimum of V₀ = 22.21 and a depth maximum of V₀ = 2000 to
+simulate infinite depth.</p>
+<p>For the first part of this project, we focus on proving
+mathematically that in a single finite square well, the energy ratio
+between the first, second, and third bound states is 1:4:9. In the
+second part, we compared the ratio from part one to determine if the
+energy differences are the same. Finally, for the third part, we solved
+for the three bound states in a double well and iterated to find a well
+depth that shows the ratio E₂₃ = 2E₁₂.</p>
+<p>Our results show that for a single well, there is no possible well
+depth that satisfies E₂₃ = E₁₂, while for a double well we found a well
+depth of V₀ = 76.3 and separation distance of d = 0.405a that satisfies
+E₂₃ = 2E₁₂.</p>
+<hr />
+<h2 data-number="1.4" id="equations-background"><span
+class="header-section-number">1.4</span> 2. Equations &amp;
+Background</h2>
+<h3 data-number="1.4.1" id="the-finite-square-well-potential"><span
+class="header-section-number">1.4.1</span> 2.1 The Finite Square Well
+Potential</h3>
+<p>A <strong>finite square well</strong> is a one-dimensional potential
+of the form:</p>
+<p><span class="math display">\[
+V(x) = \begin{cases}
+-V_0 &amp; \text{if } 0 \leq x \leq a \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>where: - <span class="math inline">\(V_0 &gt; 0\)</span> is the well
+depth - <span class="math inline">\(a\)</span> is the well width - <span
+class="math inline">\(V = 0\)</span> outside the well (the “continuum
+threshold”)</p>
+<h3 data-number="1.4.2"
+id="the-time-independent-schrödinger-equation"><span
+class="header-section-number">1.4.2</span> 2.2 The Time-Independent
+Schrödinger Equation</h3>
+<p>The time-independent Schrödinger equation in one dimension is:</p>
+<p><span class="math display">\[
+-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} + V(x)\psi(x) = E\psi(x)
+\]</span></p>
+<p>where: - <span class="math inline">\(\hbar\)</span> is the reduced
+Planck constant - <span class="math inline">\(m\)</span> is the particle
+mass - <span class="math inline">\(\psi(x)\)</span> is the wavefunction
+- <span class="math inline">\(E\)</span> is the energy eigenvalue -
+<span class="math inline">\(V(x)\)</span> is the potential energy</p>
+<h3 data-number="1.4.3" id="natural-units"><span
+class="header-section-number">1.4.3</span> 2.3 Natural Units</h3>
+<p>To simplify calculations, we work in <strong>natural units</strong>
+where:</p>
+<p><span class="math display">\[
+\hbar^2/(2m) = 1
+\]</span></p>
+<p>This makes: - Energy units: <span class="math inline">\(E_0 =
+\hbar^2/(2ma^2)\)</span> - Length units: <span
+class="math inline">\(a\)</span> (the well width)</p>
+<p>In these units, the Schrödinger equation becomes:</p>
+<p><span class="math display">\[
+-\frac{d^2\psi}{dx^2} + V(x)\psi(x) = E\psi(x)
+\]</span></p>
+<h3 data-number="1.4.4" id="energy-conversion"><span
+class="header-section-number">1.4.4</span> 2.4 Energy Conversion</h3>
+<p>Once we find <span class="math inline">\(z\)</span> values, we
+convert to energies:</p>
+<p><span class="math display">\[
+E = \frac{\hbar^2z^2}{2ma^2} - V_0 = \frac{z^2}{2a^2} - V_0
+\]</span></p>
+<p>(in natural units with <span class="math inline">\(\hbar^2/(2m) =
+1\)</span>)</p>
+<h3 data-number="1.4.5" id="infinite-well-limit"><span
+class="header-section-number">1.4.5</span> 2.5 Infinite Well Limit</h3>
+<p>As <span class="math inline">\(V_0 \to \infty\)</span>, we have <span
+class="math inline">\(z_0 \to \infty\)</span>, and:</p>
+<p><span class="math display">\[
+z_n \to n\pi \quad (n = 1, 2, 3, \ldots)
+\]</span></p>
+<p>giving:</p>
+<p><span class="math display">\[
+E_n \to \frac{n^2\pi^2\hbar^2}{2ma^2}
+\]</span></p>
+<hr />
+<h2 data-number="1.5" id="part-1-single-finite-square-well"><span
+class="header-section-number">1.5</span> 3. Part 1: Single Finite Square
+Well</h2>
+<h3 data-number="1.5.1" id="question"><span
+class="header-section-number">1.5.1</span> 3.1 Question</h3>
+<p><strong>Can we confirm that the energy ratio of the first three bound
+states in a finite square well is approximately 1:4:9?</strong></p>
+<p>First, we iterated through various well depths, finding the energies
+for the first, second, and third bound states until we reached our
+maximum well depth. Then, using the energies found, we calculated the
+ratio E₁:E₂:E₃ to confirm if it was approximately 1:4:9.</p>
+<h3 data-number="1.5.2" id="potential-configuration"><span
+class="header-section-number">1.5.2</span> 3.2 Potential
+Configuration</h3>
+<p>For a finite square well centered at the origin:</p>
+<p><span class="math display">\[
+V(x) = \begin{cases}
+-V_0 &amp; \text{if } -a/2 \leq x \leq a/2 \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<p>We seek <strong>bound states</strong> with <span
+class="math inline">\(-V_0 &lt; E &lt; 0\)</span>.</p>
+<h3 data-number="1.5.3" id="solution-strategy"><span
+class="header-section-number">1.5.3</span> 3.3 Solution Strategy</h3>
+<p>The solution has three regions:</p>
+<p><strong>Region I</strong> (<span class="math inline">\(x &lt;
+-a/2\)</span>): Outside the well (left)</p>
+<p><span class="math display">\[
+\psi_I(x) = Ae^{\kappa x}
+\]</span></p>
+<p>where <span class="math inline">\(\kappa = \sqrt{-2mE/\hbar^2} =
+\sqrt{-2E}\)</span> (in natural units)</p>
+<p><strong>Region II</strong> (<span class="math inline">\(-a/2 \leq x
+\leq a/2\)</span>): Inside the well</p>
+<p><span class="math display">\[
+\psi_{II}(x) = B\cos(kx) + C\sin(kx)
+\]</span></p>
+<p>where <span class="math inline">\(k = \sqrt{2m(E + V_0)/\hbar^2} =
+\sqrt{2(E + V_0)}\)</span> (in natural units)</p>
+<p><strong>Region III</strong> (<span class="math inline">\(x &gt;
+a/2\)</span>): Outside the well (right)</p>
+<p><span class="math display">\[
+\psi_{III}(x) = De^{-\kappa x}
+\]</span></p>
+<h3 data-number="1.5.4" id="boundary-conditions"><span
+class="header-section-number">1.5.4</span> 3.4 Boundary Conditions</h3>
+<p>At the boundaries, we require: 1. <span
+class="math inline">\(\psi\)</span> is continuous 2. <span
+class="math inline">\(\psi&#39;\)</span> is continuous</p>
+<p>These lead to <strong>matching conditions</strong> at <span
+class="math inline">\(x = \pm a/2\)</span>.</p>
+<h3 data-number="1.5.5" id="parity-symmetry"><span
+class="header-section-number">1.5.5</span> 3.5 Parity Symmetry</h3>
+<p>Since the potential is symmetric, solutions can be classified by
+parity:</p>
+<p><strong>Even parity</strong> (symmetric): <span
+class="math inline">\(\psi(-x) = \psi(x)\)</span> - Use <span
+class="math inline">\(\psi_{II}(x) = B\cos(kx)\)</span></p>
+<p><strong>Odd parity</strong> (antisymmetric): <span
+class="math inline">\(\psi(-x) = -\psi(x)\)</span> - Use <span
+class="math inline">\(\psi_{II}(x) = C\sin(kx)\)</span></p>
+<h3 data-number="1.5.6" id="dimensionless-parameters"><span
+class="header-section-number">1.5.6</span> 3.6 Dimensionless
+Parameters</h3>
+<p>Define dimensionless variables:</p>
+<p><span class="math display">\[
+z \equiv ka = a\sqrt{2m(E + V_0)/\hbar^2}
+\]</span></p>
+<p><span class="math display">\[
+z_0 \equiv a\sqrt{2mV_0/\hbar^2}
+\]</span></p>
+<p>These satisfy: <span class="math display">\[
+z^2 = (a\kappa)^2 + z_0^2
+\]</span></p>
+<p>where <span class="math inline">\(a\kappa =
+a\sqrt{-2mE/\hbar^2}\)</span>.</p>
+<h3 data-number="1.5.7" id="transcendental-equations"><span
+class="header-section-number">1.5.7</span> 3.7 Transcendental
+Equations</h3>
+<p>Applying boundary conditions yields:</p>
+<p><strong>Even parity states:</strong></p>
+<p><span class="math display">\[
+\tan(z) = \sqrt{\left(\frac{z_0}{z}\right)^2 - 1}
+\]</span></p>
+<p><strong>Odd parity states:</strong></p>
+<p><span class="math display">\[
+-\cot(z) = \sqrt{\left(\frac{z_0}{z}\right)^2 - 1}
+\]</span></p>
+<p>or equivalently:</p>
+<p><span class="math display">\[
+\tan(z) = -\frac{1}{\sqrt{(z_0/z)^2 - 1}}
+\]</span></p>
+<h3 data-number="1.5.8"
+id="derivation-of-transcendental-equations"><span
+class="header-section-number">1.5.8</span> 3.8 Derivation of
+Transcendental Equations</h3>
+<h4 data-number="1.5.8.1" id="even-parity-case"><span
+class="header-section-number">1.5.8.1</span> 3.8.1 Even Parity Case</h4>
+<p><strong>Wavefunction inside well:</strong> <span
+class="math inline">\(\psi_{II}(x) = A\cos(kx)\)</span></p>
+<p><strong>Wavefunction outside well (right):</strong> <span
+class="math inline">\(\psi_{III}(x) = Be^{-\kappa x}\)</span></p>
+<p><strong>Continuity at <span class="math inline">\(x =
+a/2\)</span>:</strong></p>
+<p><span class="math display">\[
+A\cos(ka/2) = Be^{-\kappa a/2}
+\]</span></p>
+<p><strong>Derivative continuity at <span class="math inline">\(x =
+a/2\)</span>:</strong></p>
+<p><span class="math display">\[
+-Ak\sin(ka/2) = -B\kappa e^{-\kappa a/2}
+\]</span></p>
+<p><strong>Divide second by first:</strong></p>
+<p><span class="math display">\[
+k\tan(ka/2) = \kappa
+\]</span></p>
+<p><strong>Using <span class="math inline">\(z = ka\)</span> and <span
+class="math inline">\((a\kappa)^2 + z^2 = z_0^2\)</span>:</strong></p>
+<p><span class="math display">\[
+\frac{z}{2}\tan(z/2) = \sqrt{z_0^2 - z^2}/2
+\]</span></p>
+<p><strong>Simplify using <span class="math inline">\(\tan(z/2) =
+\sin(z)/(1+\cos(z))\)</span>:</strong></p>
+<p>After algebra (using double-angle formulas), this becomes:</p>
+<p><span class="math display">\[
+\tan(z) = \sqrt{(z_0/z)^2 - 1}
+\]</span></p>
+<h4 data-number="1.5.8.2" id="odd-parity-case"><span
+class="header-section-number">1.5.8.2</span> 3.8.2 Odd Parity Case</h4>
+<p><strong>Wavefunction inside well:</strong> <span
+class="math inline">\(\psi_{II}(x) = C\sin(kx)\)</span></p>
+<p>Following similar steps:</p>
+<p><strong>Continuity:</strong> <span class="math inline">\(C\sin(ka/2)
+= Be^{-\kappa a/2}\)</span></p>
+<p><strong>Derivative continuity:</strong> <span
+class="math inline">\(Ck\cos(ka/2) = -B\kappa e^{-\kappa
+a/2}\)</span></p>
+<p><strong>Divide:</strong></p>
+<p><span class="math display">\[
+k\cot(ka/2) = -\kappa
+\]</span></p>
+<p>This leads to:</p>
+<p><span class="math display">\[
+-\cot(z) = \sqrt{(z_0/z)^2 - 1}
+\]</span></p>
+<h3 data-number="1.5.9" id="graphical-solution-method"><span
+class="header-section-number">1.5.9</span> 3.9 Graphical Solution
+Method</h3>
+<p>These transcendental equations can be visualized as
+intersections:</p>
+<ol type="1">
+<li>Plot <span class="math inline">\(y = \tan(z)\)</span> (or <span
+class="math inline">\(y = -\cot(z)\)</span>)</li>
+<li>Plot <span class="math inline">\(y = \sqrt{(z_0/z)^2 -
+1}\)</span></li>
+<li>Intersections give eigenvalues</li>
+</ol>
+<p><strong>Key observations:</strong> - Even states occur in intervals
+<span class="math inline">\([n\pi, (n+1/2)\pi]\)</span> - Odd states
+occur in intervals <span class="math inline">\([(n+1/2)\pi,
+(n+1)\pi]\)</span> - Number of bound states: <span
+class="math inline">\(n \approx z_0/\pi\)</span></p>
+<p><img src="part1_energy_levels.png" /></p>
+<p><strong>Figure 1:</strong> The graph above shows the transcendental
+equations for a well depth between V₀ = 23 and V₀ = 400. This confirms
+that the first three bound states have different increasing energies. It
+also shows a linear correlation between well depth and energy
+levels.</p>
+<p><img src="part1_energy_spacings.png" /></p>
+<p><strong>Figure 2:</strong> The graph above shows the energy levels
+and spacings for a well depth between V₀ = 23 and V₀ = 400. The energy
+spacing shown above confirms the assumption that the energy state
+difference between E₁ and E₂ does not equal the difference between E₂
+and E₃. Each difference eventually asymptotically approaches a constant
+value as the well depth increases.</p>
+<h3 data-number="1.5.10" id="summary-of-part-1"><span
+class="header-section-number">1.5.10</span> 3.10 Summary of Part 1</h3>
+<p>This produces an energy ratio of <strong>1:4.0:8.998</strong>, thus
+confirming the expected ratio of 1:4:9 for the first three bound states
+in a finite square well.</p>
+<hr />
+<h2 data-number="1.6"
+id="part-2-mathematical-proof-that-e₁₂-e₂₃-in-single-wells"><span
+class="header-section-number">1.6</span> 4. Part 2: Mathematical Proof
+that E₁₂ ≠ E₂₃ in Single Wells</h2>
+<h3 data-number="1.6.1" id="question-1"><span
+class="header-section-number">1.6.1</span> 4.1 Question</h3>
+<p><strong>Can we find a well depth V₀ such that the energy spacings are
+equal?</strong></p>
+<p>That is, does there exist V₀ where:</p>
+<p><span class="math display">\[
+E_{12} = E_{23}
+\]</span></p>
+<p>or equivalently:</p>
+<p><span class="math display">\[
+E_2 - E_1 = E_3 - E_2
+\]</span></p>
+<p><span class="math display">\[
+\frac{E_{23}}{E_{12}} = 1
+\]</span></p>
+<h3 data-number="1.6.2" id="answer-no"><span
+class="header-section-number">1.6.2</span> 4.2 Answer: NO</h3>
+<p>We will prove that <strong>for all possible well depths</strong>, the
+ratio <span class="math inline">\(E_{23}/E_{12} &gt; 1\)</span>, meaning
+the spacing between the second and third levels is always greater than
+the spacing between the first and second levels.</p>
+<h3 data-number="1.6.3" id="why-e₂₃-e₁₂-in-single-wells"><span
+class="header-section-number">1.6.3</span> 4.3 Why E₂₃ &gt; E₁₂ in
+Single Wells</h3>
+<p><strong>Reason 1: Quantum Number Scaling</strong></p>
+<p>In the infinite well, <span class="math inline">\(E_n \propto
+n^2\)</span>, so:</p>
+<p><span class="math display">\[
+E_{12} = E_2 - E_1 \propto 4 - 1 = 3
+\]</span></p>
+<p><span class="math display">\[
+E_{23} = E_3 - E_2 \propto 9 - 4 = 5
+\]</span></p>
+<p>Thus <span class="math inline">\(E_{23}/E_{12} = 5/3 \approx
+1.667\)</span>.</p>
+<p><strong>Reason 2: Wavefunction Curvature</strong></p>
+<p>Higher energy states have: - More nodes (zero crossings) - Greater
+curvature - Higher kinetic energy - Larger spacing to next level</p>
+<h3 data-number="1.6.4" id="mathematical-analysis"><span
+class="header-section-number">1.6.4</span> 4.4 Mathematical
+Analysis</h3>
+<h4 data-number="1.6.4.1"
+id="case-1-infinite-well-limit-v_0-to-infty"><span
+class="header-section-number">1.6.4.1</span> 4.4.1 Case 1: Infinite Well
+Limit (<span class="math inline">\(V_0 \to \infty\)</span>)</h4>
+<p>As the well becomes infinitely deep, the energy levels approach:</p>
+<p><span class="math display">\[
+E_n = \frac{n^2\pi^2\hbar^2}{2ma^2}
+\]</span></p>
+<p>The energy spacings are:</p>
+<p><span class="math display">\[
+E_{12} = E_2 - E_1 = \frac{\pi^2\hbar^2}{2ma^2}(4 - 1) =
+\frac{3\pi^2\hbar^2}{2ma^2}
+\]</span></p>
+<p><span class="math display">\[
+E_{23} = E_3 - E_2 = \frac{\pi^2\hbar^2}{2ma^2}(9 - 4) =
+\frac{5\pi^2\hbar^2}{2ma^2}
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\lim_{V_0 \to \infty} \frac{E_{23}}{E_{12}} = \frac{5}{3} \approx 1.667
+\]</span></p>
+<p><strong>Conclusion:</strong> In the infinite well limit, the ratio
+approaches 5/3, which is greater than 1.</p>
+<h4 data-number="1.6.4.2" id="case-2-near-threshold-behavior"><span
+class="header-section-number">1.6.4.2</span> 4.4.2 Case 2:
+Near-Threshold Behavior</h4>
+<p>The third bound state first appears when the well is just deep
+enough. This occurs at:</p>
+<p><span class="math display">\[
+V_0^{\text{threshold}} = \frac{9\pi^2\hbar^2}{8ma^2} \approx 22.21
+\]</span></p>
+<p>(in natural units where <span class="math inline">\(\hbar^2/(2m) =
+1\)</span>)</p>
+<p>At this threshold: - The third state has <span
+class="math inline">\(z_3 \approx \frac{3\pi}{2}\)</span> (barely bound)
+- The second state has <span class="math inline">\(z_2 \approx
+\frac{\pi}{2}\)</span> (well bound) - The first state has <span
+class="math inline">\(z_1 \approx 0\)</span> (most deeply bound)</p>
+<p>Computing the ratio at threshold numerically:</p>
+<p><span class="math display">\[
+\left.\frac{E_{23}}{E_{12}}\right|_{V_0 = V_0^{\text{threshold}}}
+\approx 1.571
+\]</span></p>
+<p><strong>Conclusion:</strong> Even at the threshold where the third
+state barely exists, the ratio is still greater than 1.</p>
+<h3 data-number="1.6.5" id="numerical-verification"><span
+class="header-section-number">1.6.5</span> 4.5 Numerical
+Verification</h3>
+<h4 data-number="1.6.5.1" id="comprehensive-search"><span
+class="header-section-number">1.6.5.1</span> 4.5.1 Comprehensive
+Search</h4>
+<p>We solve the transcendental equations for:</p>
+<p><span class="math display">\[
+V_0 \in [22.21, 1000]
+\]</span></p>
+<p>spanning from the threshold for three bound states to deep well
+limit.</p>
+<p><strong>Results:</strong></p>
+<table>
+<thead>
+<tr>
+<th><span class="math inline">\(V_0\)</span></th>
+<th><span class="math inline">\(E_1\)</span></th>
+<th><span class="math inline">\(E_2\)</span></th>
+<th><span class="math inline">\(E_3\)</span></th>
+<th><span class="math inline">\(E_{12}\)</span></th>
+<th><span class="math inline">\(E_{23}\)</span></th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23.0</td>
+<td>-20.80</td>
+<td>-15.89</td>
+<td>-8.07</td>
+<td>4.91</td>
+<td>7.82</td>
+<td>1.571</td>
+</tr>
+<tr>
+<td>50.0</td>
+<td>-47.84</td>
+<td>-43.19</td>
+<td>-35.99</td>
+<td>4.65</td>
+<td>7.20</td>
+<td>1.548</td>
+</tr>
+<tr>
+<td>100.0</td>
+<td>-97.76</td>
+<td>-93.94</td>
+<td>-88.23</td>
+<td>3.82</td>
+<td>5.71</td>
+<td>1.495</td>
+</tr>
+<tr>
+<td>500.0</td>
+<td>-497.7</td>
+<td>-495.6</td>
+<td>-492.8</td>
+<td>2.26</td>
+<td>2.79</td>
+<td>1.234</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>-997.7</td>
+<td>-996.6</td>
+<td>-994.4</td>
+<td>1.13</td>
+<td>1.88</td>
+<td>1.664</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observation:</strong> The ratio is bounded:</p>
+<p><span class="math display">\[
+1.571 \leq \frac{E_{23}}{E_{12}} \leq 1.667
+\]</span></p>
+<p>for all <span class="math inline">\(V_0\)</span> where three bound
+states exist.</p>
+<p><strong>Minimum occurs at threshold, maximum at infinite
+limit.</strong></p>
+<p>The ratio <strong>never equals 1</strong> and <strong>never exceeds
+the infinite well value of 5/3</strong>.</p>
+<p><img src="part2_energy_ratio.png" /></p>
+<p><strong>Figure 3:</strong> The graph above shows the ratio of E₂₃ to
+E₁₂ for well depths ranging from V₀ = 22.21 to V₀ = 2000. The graph
+confirms that the ratio remains between approximately 1.571 and 1.667,
+never reaching 1.</p>
+<h3 data-number="1.6.6" id="summary-of-part-2"><span
+class="header-section-number">1.6.6</span> 4.6 Summary of Part 2</h3>
+<p><strong>Question:</strong> Can we find <span
+class="math inline">\(V_0\)</span> such that <span
+class="math inline">\(E_{12} = E_{23}\)</span>?</p>
+<p><strong>Answer:</strong> <strong>NO</strong> — It is mathematically
+impossible.</p>
+<p><strong>Proof Summary:</strong></p>
+<ol type="1">
+<li><strong>Mathematical Analysis:</strong>
+<ul>
+<li>At threshold: <span class="math inline">\(E_{23}/E_{12} \approx
+1.571 &gt; 1\)</span></li>
+<li>As <span class="math inline">\(V_0 \to \infty\)</span>: <span
+class="math inline">\(E_{23}/E_{12} \to 5/3 \approx 1.667 &gt;
+1\)</span></li>
+</ul></li>
+<li><strong>Numerical Verification:</strong>
+<ul>
+<li>Comprehensive search over all <span
+class="math inline">\(V_0\)</span> confirms <span
+class="math inline">\(E_{23}/E_{12} \in [1.571, 1.667]\)</span></li>
+</ul></li>
+</ol>
+<p><strong>Conclusion:</strong> The constraint <span
+class="math inline">\(E_{23} &gt; E_{12}\)</span> is
+<strong>fundamental</strong> to single finite square wells. To achieve
+<span class="math inline">\(E_{23} = 2E_{12}\)</span> (or any other
+desired ratio outside [1.571, 1.667]), we need <strong>additional
+degrees of freedom</strong> → Double well!</p>
+<hr />
+<h2 data-number="1.7" id="part-3-double-finite-square-well"><span
+class="header-section-number">1.7</span> 5. Part 3: Double Finite Square
+Well</h2>
+<h3 data-number="1.7.1" id="question-2"><span
+class="header-section-number">1.7.1</span> 5.1 Question</h3>
+<p><strong>Can we find well parameters <span class="math inline">\((V_0,
+d)\)</span> such that <span class="math inline">\(E_{23} =
+2E_{12}\)</span> by varying the well depth <span
+class="math inline">\(V_0\)</span> and the separation distance <span
+class="math inline">\(d\)</span>?</strong></p>
+<h3 data-number="1.7.2" id="potential-configuration-1"><span
+class="header-section-number">1.7.2</span> 5.2 Potential
+Configuration</h3>
+<p>A double well consists of two identical wells separated by distance
+<span class="math inline">\(d\)</span>:</p>
+<p><span class="math display">\[
+V(x) = \begin{cases}
+-V_0 &amp; \text{if } -d/2-a \leq x \leq -d/2 \text{ or } d/2 \leq x
+\leq d/2+a \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+<h3 data-number="1.7.3" id="physical-picture"><span
+class="header-section-number">1.7.3</span> 5.3 Physical Picture</h3>
+<p>For large separation <span class="math inline">\(d \gg a\)</span>: -
+Wells are nearly independent - States approximate single-well solutions
+- Small <strong>tunneling</strong> between wells</p>
+<p>For small separation <span class="math inline">\(d \lesssim
+a\)</span>: - Strong coupling between wells - Behavior like a wider
+single well</p>
+<h3 data-number="1.7.4" id="tight-binding-approximation"><span
+class="header-section-number">1.7.4</span> 5.4 Tight-Binding
+Approximation</h3>
+<p>When wells are moderately separated, we use the <strong>tight-binding
+approximation</strong>:</p>
+<ol type="1">
+<li>Start with single-well states <span
+class="math inline">\(\phi_L(x)\)</span> (left) and <span
+class="math inline">\(\phi_R(x)\)</span> (right)</li>
+<li>Form symmetric and antisymmetric combinations:</li>
+</ol>
+<p><span class="math display">\[
+\psi_\pm(x) = \frac{1}{\sqrt{2}}[\phi_L(x) \pm \phi_R(x)]
+\]</span></p>
+<ol start="3" type="1">
+<li>These have energies:</li>
+</ol>
+<p><span class="math display">\[
+E_\pm = E_0 \mp t
+\]</span></p>
+<p>where <span class="math inline">\(E_0\)</span> is the single-well
+energy and <span class="math inline">\(t\)</span> is the
+<strong>tunneling matrix element</strong>.</p>
+<h3 data-number="1.7.5" id="tunneling-matrix-element"><span
+class="header-section-number">1.7.5</span> 5.5 Tunneling Matrix
+Element</h3>
+<p>The tunneling strength depends on wavefunction overlap in the
+barrier:</p>
+<p><span class="math display">\[
+t \approx |E_0| \cdot e^{-\kappa d}
+\]</span></p>
+<p>where: - <span class="math inline">\(\kappa =
+\sqrt{-2mE_0/\hbar^2}\)</span> is the decay constant - <span
+class="math inline">\(d\)</span> is the separation between wells - <span
+class="math inline">\(E_0 &lt; 0\)</span> is the single-well bound state
+energy</p>
+<p><strong>Physical interpretation:</strong> - Exponential suppression
+with distance - Higher energy states (smaller <span
+class="math inline">\(|\kappa|\)</span>) tunnel more easily - This <span
+class="math inline">\(d\)</span>-dependence is key to quantum
+engineering!</p>
+<h3 data-number="1.7.6" id="level-structure"><span
+class="header-section-number">1.7.6</span> 5.6 Level Structure</h3>
+<p>Each single-well state splits into a doublet:</p>
+<p><strong>Ground state doublet:</strong> - <span
+class="math inline">\(E_1\)</span> (symmetric): <span
+class="math inline">\(E_0^{(1)} - \Delta E_1/2\)</span> (bonding) -
+<span class="math inline">\(E_2\)</span> (antisymmetric): <span
+class="math inline">\(E_0^{(1)} + \Delta E_1/2\)</span>
+(antibonding)</p>
+<p><strong>First excited doublet:</strong> - <span
+class="math inline">\(E_3\)</span> (symmetric): <span
+class="math inline">\(E_0^{(2)} - \Delta E_2/2\)</span> - <span
+class="math inline">\(E_4\)</span> (antisymmetric): <span
+class="math inline">\(E_0^{(2)} + \Delta E_2/2\)</span></p>
+<p>where <span class="math inline">\(\Delta E_i\)</span> is the
+splitting for state <span class="math inline">\(i\)</span>.</p>
+<h3 data-number="1.7.7" id="engineering-energy-ratios"><span
+class="header-section-number">1.7.7</span> 5.7 Engineering Energy
+Ratios</h3>
+<p>The spacings are:</p>
+<p><span class="math display">\[
+E_{12} = E_2 - E_1 = \Delta E_1
+\]</span></p>
+<p><span class="math display">\[
+E_{23} = E_3 - E_2 = (E_0^{(2)} - \Delta E_2/2) - (E_0^{(1)} + \Delta
+E_1/2)
+\]</span></p>
+<p>By tuning <span class="math inline">\(d\)</span>, we control the
+splittings independently!</p>
+<p>For <span class="math inline">\(E_{23} = 2E_{12}\)</span>, we
+need:</p>
+<p><span class="math display">\[
+(E_0^{(2)} - E_0^{(1)}) - \frac{\Delta E_2 + \Delta E_1}{2} = 2\Delta
+E_1
+\]</span></p>
+<p>This can be satisfied for appropriate choice of <span
+class="math inline">\((V_0, d)\)</span>.</p>
+<h3 data-number="1.7.8" id="optimization-for-double-well"><span
+class="header-section-number">1.7.8</span> 5.8 Optimization for Double
+Well</h3>
+<p><strong>Algorithm:</strong> Nelder-Mead Simplex</p>
+<p><strong>Objective:</strong> Minimize <span
+class="math inline">\(f(V_0, d) = |E_{23}/E_{12} - 2|\)</span></p>
+<p><strong>How it works:</strong> 1. Start with a simplex (triangle) in
+parameter space 2. At each iteration: - Reflect worst point through
+centroid - If improvement, try expansion - If worse, try contraction -
+If still worse, shrink simplex 3. Repeat until convergence</p>
+<p><strong>Advantages:</strong> - No derivatives required - Works well
+for non-smooth functions - Handles constraints naturally - Good for
+low-dimensional problems (we have 2D)</p>
+<p><img src="part3_double_well_configuration.png" /></p>
+<p><strong>Figure 4:</strong> The graph above shows the double finite
+square well configuration with well depth V₀ and separation distance
+d. This configuration allows for independent tuning of energy level
+splittings through the parameter d.</p>
+<h3 data-number="1.7.9" id="summary-of-part-3"><span
+class="header-section-number">1.7.9</span> 5.9 Summary of Part 3</h3>
+<p>Using the optimization method, we found: - Well depth: <span
+class="math inline">\(V_0 = 76.3\)</span> - Separation: <span
+class="math inline">\(d = 0.405a\)</span></p>
+<p>that satisfies:</p>
+<p><span class="math display">\[
+E_{23} = 2E_{12}
+\]</span></p>
+<p>with high precision.</p>
+<p>This is universal for confining potentials that support three bound
+energy states!</p>
+<hr />
+<h2 data-number="1.8" id="conclusions"><span
+class="header-section-number">1.8</span> 6. Conclusions</h2>
+<p>The single finite square well has inherent limitations on energy
+level spacings due to its single parameter (<span
+class="math inline">\(V_0\)</span>). The double finite square well
+introduces an additional degree of freedom (separation <span
+class="math inline">\(d\)</span>), enabling independent control over
+energy level splittings. This allows for engineering specific energy
+ratios, such as <span class="math inline">\(E_{23} = 2E_{12}\)</span>,
+which is impossible in a single well.</p>
+<hr />
+<h2 data-number="1.9" id="extensions-and-applications"><span
+class="header-section-number">1.9</span> 7. Extensions and
+Applications</h2>
+<h3 data-number="1.9.1"
+id="physical-interpretation-of-double-well-molecular-bonding"><span
+class="header-section-number">1.9.1</span> 7.1 Physical Interpretation
+of Double Well: Molecular Bonding</h3>
+<p>The double well is exactly the H₂⁺ ion problem: - Two protons → two
+wells - One electron → quantum particle - Bond length → well separation
+<span class="math inline">\(d\)</span></p>
+<p><strong>Molecular orbitals:</strong> - <span
+class="math inline">\(\sigma\)</span> (bonding) = symmetric state -
+<span class="math inline">\(\sigma^*\)</span> (antibonding) =
+antisymmetric state</p>
+<p><strong>Bond order:</strong> - Splitting increases as bond length
+decreases - Optimal bond length minimizes energy</p>
+<p>Our quantum engineering is molecular engineering!</p>
+<h3 data-number="1.9.2" id="why-double-wells-enable-engineering"><span
+class="header-section-number">1.9.2</span> 7.2 Why Double Wells Enable
+Engineering</h3>
+<p><strong>Key insight:</strong> Separation <span
+class="math inline">\(d\)</span> provides an <strong>independent control
+knob</strong>.</p>
+<p><strong>Single well has one parameter (<span
+class="math inline">\(V_0\)</span>):</strong> - Controls all energy
+levels together - Cannot adjust relative spacings</p>
+<p><strong>Double well has two parameters (<span
+class="math inline">\(V_0\)</span>, <span
+class="math inline">\(d\)</span>):</strong> - <span
+class="math inline">\(V_0\)</span> sets overall energy scale - <span
+class="math inline">\(d\)</span> controls level splitting - Can tune
+<span class="math inline">\(E_{12}\)</span> and <span
+class="math inline">\(E_{23}\)</span> independently</p>
+<p><strong>Physical mechanism:</strong> - Different states have
+different <span class="math inline">\(\kappa\)</span> values - Splitting
+<span class="math inline">\(\sim e^{-\kappa d}\)</span> varies
+differently - This breaks the <span class="math inline">\(n^2\)</span>
+constraint!</p>
+<h3 data-number="1.9.3" id="real-world-parameters"><span
+class="header-section-number">1.9.3</span> 7.3 Real-World
+Parameters</h3>
+<p><strong>GaAs/AlGaAs quantum well:</strong> - Effective mass: <span
+class="math inline">\(m^* \approx 0.067 m_e\)</span> - Well width: <span
+class="math inline">\(a \sim 5-20\)</span> nm - Well depth: <span
+class="math inline">\(V_0 \sim 100-500\)</span> meV - Separation: <span
+class="math inline">\(d \sim 2-10\)</span> nm</p>
+<p><strong>Our result <span class="math inline">\((V_0 = 76.3, d =
+0.405a)\)</span> translates to:</strong> - If <span
+class="math inline">\(a = 10\)</span> nm: <span class="math inline">\(d
+= 4\)</span> nm, <span class="math inline">\(V_0 \approx 300\)</span>
+meV - Experimentally achievable with MBE!</p>
+<hr />
+<h2 data-number="1.10" id="appendix-key-equations-summary"><span
+class="header-section-number">1.10</span> 8. Appendix: Key Equations
+Summary</h2>
+<h3 data-number="1.10.1" id="single-well"><span
+class="header-section-number">1.10.1</span> 8.1 Single Well</h3>
+<p><strong>Transcendental equations:</strong></p>
+<p><span class="math display">\[
+\tan(z) = \sqrt{(z_0/z)^2 - 1} \quad \text{(even)}
+\]</span></p>
+<p><span class="math display">\[
+-\cot(z) = \sqrt{(z_0/z)^2 - 1} \quad \text{(odd)}
+\]</span></p>
+<p><strong>Energy:</strong></p>
+<p><span class="math display">\[
+E = \frac{z^2}{2a^2} - V_0
+\]</span></p>
+<h3 data-number="1.10.2" id="double-well"><span
+class="header-section-number">1.10.2</span> 8.2 Double Well</h3>
+<p><strong>Splitting:</strong></p>
+<p><span class="math display">\[
+\Delta E \approx |E_0| e^{-\kappa d}
+\]</span></p>
+<p><strong>Energies:</strong></p>
+<p><span class="math display">\[
+E_{\pm} = E_0 \mp \Delta E/2
+\]</span></p>
+<h3 data-number="1.10.3" id="numerical-code-for-all-three-parts"><span
+class="header-section-number">1.10.3</span> 8.3 Numerical Code for All
+Three Parts</h3>
+<p>The Code we made for theis project can be found on the github
+repository by scanning the QR code below: <img
+src="adobe-express-qr-code%202.png" /></p>
+<hr />
+<h2 data-number="1.11" id="references"><span
+class="header-section-number">1.11</span> 9. References</h2>
+<ol type="1">
+<li><strong>Griffiths, D.J.</strong> (2018). <em>Introduction to Quantum
+Mechanics</em> (3rd ed.). Cambridge University Press.
+<ul>
+<li>Chapter 2: Time-Independent Schrödinger Equation</li>
+<li>Section 2.6: Finite Square Well</li>
+</ul></li>
+<li><strong>Townsend, J.S.</strong> (2012). <em>A Modern Approach to
+Quantum Mechanics</em> (2nd ed.). University Science Books.
+<ul>
+<li>Chapter 6: Wave Mechanics in One Dimension</li>
+<li>Section 6.4: Finite Square Well</li>
+</ul></li>
+</ol>
+</body>
+</html>
