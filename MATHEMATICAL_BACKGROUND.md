@@ -1,4 +1,6 @@
-# Mathematical Background for Finite Square Well Calculations
+<center>
+
+## Mathematical Background for Finite Square Well Calculations.
 
 ## Complete Quantum Mechanics Explanation
 
@@ -9,6 +11,8 @@
 ---
 
 ## Table of Contents
+
+</center>
 
 1. [Introduction](#introduction)
 2. [Mathematical Foundation](#mathematical-foundation)
@@ -22,9 +26,11 @@
 
 ## Introduction
 
-This document provides a comprehensive mathematical explanation of the quantum mechanics behind finite square well calculations. We solve the time-independent Schrödinger equation for both single and double well configurations to find bound state energies.
+This document provides a Final Summary of the quantum mechanics behind finite square well calculations. We solve the time-independent Schrödinger equation for both single and double well configurations to find bound state energies. To solve it, we assumed a well depth minimum of V₀ = 22.21 and a depth maximum of V₀ = 2000 to simulate infinite depth. For the first part of this project we focus on proving mathematically that in a single finite square well, the energy ratio between the first, second, and third bound states is 1:4:9. On the second part, we compared the ratio of first part to find if the energy differences are the same. Finally for the last part, we solved for the three bounded states in a double well and iterated to find a well depth that shows the ratio E₂₃ = 2E₁₂. Our results show that for a single well, there is no possible well depth that satisfies E₂₃ = E₁₂, while for a double well we found a well depth of V₀ = 76.3 and separation distance of d = 0.405a that satisfies E₂₃ = 2E₁₂.
 
-### Physical System
+---
+
+## Equations & Background
 
 A **finite square well** is a one-dimensional potential of the form:
 
@@ -39,10 +45,6 @@ where:
 - $V_0 > 0$ is the well depth
 - $a$ is the well width
 - $V = 0$ outside the well (the "continuum threshold")
-
----
-
-## Mathematical Foundation
 
 ### The Time-Independent Schrödinger Equation
 
@@ -77,11 +79,37 @@ $$
 -\frac{d^2\psi}{dx^2} + V(x)\psi(x) = E\psi(x)
 $$
 
+### Energy Conversion
+
+Once we find $z$ values, convert to energies:
+
+$$
+E = \frac{\hbar^2z^2}{2ma^2} - V_0 = \frac{z^2}{2a^2} - V_0
+$$
+
+(in natural units with $\hbar^2/(2m) = 1$)
+
+### Infinite Well Limit
+
+As $V_0 \to \infty$, we have $z_0 \to \infty$, and:
+
+$$
+z_n \to n\pi \quad (n = 1, 2, 3, \ldots)
+$$
+
+giving:
+
+$$
+E_n \to \frac{n^2\pi^2\hbar^2}{2ma^2}
+$$
+
 ---
 
 ## Single Finite Square Well
 
 ### Problem Setup
+
+We iterated through various well depths, finding the energies for the first, second, and third bounded states untul we got to our maximium well depth. 
 
 For a finite square well centered at the origin:
 
@@ -191,30 +219,6 @@ These transcendental equations can be visualized as intersections:
 - Even states occur in intervals $[n\pi, (n+1/2)\pi]$
 - Odd states occur in intervals $[(n+1/2)\pi, (n+1)\pi]$
 - Number of bound states: $n \approx z_0/\pi$
-
-### Energy Conversion
-
-Once we find $z$ values, convert to energies:
-
-$$
-E = \frac{\hbar^2z^2}{2ma^2} - V_0 = \frac{z^2}{2a^2} - V_0
-$$
-
-(in natural units with $\hbar^2/(2m) = 1$)
-
-### Infinite Well Limit
-
-As $V_0 \to \infty$, we have $z_0 \to \infty$, and:
-
-$$
-z_n \to n\pi \quad (n = 1, 2, 3, \ldots)
-$$
-
-giving:
-
-$$
-E_n \to \frac{n^2\pi^2\hbar^2}{2ma^2}
-$$
 
 This produces the familiar 1:4:9 ratio.
 
