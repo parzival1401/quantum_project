@@ -18,8 +18,8 @@ quantum_project/
 │   ├── FiniteSquareWell.jl # Core implementation module
 │   └── main.jl             # Main execution script
 ├── docs/                   # Documentation
-│   ├── MATHEMATICAL_BACKGROUND.md
-│   └── Mathematical_Background_Finite_Square_Well_CORRECTED.md
+│   ├── Mathematical_Background_Finite_Square_Well_CORRECTED.md
+│   └── Mathematical_Background_Finite_Square_Well_CORRECTED.pdf
 ├── results/                # Generated plots and results
 │   ├── part1_energy_levels.png
 │   ├── part1_energy_spacings.png
@@ -83,17 +83,25 @@ The simulation generates several plots saved in the `results/` directory:
 
 ## Documentation
 
-Detailed mathematical background and theoretical foundations are available in the `docs/` directory:
-- [Mathematical Background](docs/MATHEMATICAL_BACKGROUND.md)
-- [Finite Square Well Theory (Corrected)](docs/Mathematical_Background_Finite_Square_Well_CORRECTED.md)
+Comprehensive mathematical background and theoretical foundations are available in the `docs/` directory:
+- **Markdown:** [Mathematical_Background_Finite_Square_Well_CORRECTED.md](docs/Mathematical_Background_Finite_Square_Well_CORRECTED.md)
+- **PDF:** [Mathematical_Background_Finite_Square_Well_CORRECTED.pdf](docs/Mathematical_Background_Finite_Square_Well_CORRECTED.pdf)
+
+The documentation includes:
+- Complete derivation of transcendental equations for bound states
+- Mathematical proof that E₁₂ ≠ E₂₃ in single wells
+- Analysis of double-well configurations and energy level engineering
+- Numerical methods and optimization techniques
+- Detailed figures and visualizations
 
 ## License
 
 Academic project for Fall 2025 Quantum Physics course.
 
-## Author
+## Authors
 
-Fernando Delgado
+- Fernando Delgado
+- Kendal Trellue
 
 ---
 
