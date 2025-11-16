@@ -1,0 +1,6 @@
+[deps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+Optimization = "7f7a1694-90dd-40f0-9382-eb1efda571ba"
+OptimizationOptimJL = "36348300-93cb-4f02-beb5-3c3902f8871e"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
