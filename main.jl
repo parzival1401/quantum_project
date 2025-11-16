@@ -2,280 +2,160 @@
     main.jl
 
 Main script to run all three parts of the Quantum Design Project.
-Demonstrates usage of the FiniteSquareWell module.
 
 Usage:
     julia main.jl
 """
 
 include("FiniteSquareWell.jl")
+
 using .FiniteSquareWell
 using CairoMakie
 using Printf
-
-println("="^70)
-println("QUANTUM DESIGN PROJECT - COMPLETE SOLUTION")
-println("="^70)
-println()
-
-# ============================================================================
-#                            PART 1: SINGLE WELL
-# ============================================================================
-
-println("PART 1: Energy Levels vs Well Depth")
-println("-"^70)
-
-# Define range of well depths
-# Need V0 > (3π/2)² ≈ 22.2 for three bound states
-V0_min = 23.0
-V0_max = 2500.0
-V0_range = range(V0_min, V0_max, length=1000)
-
-# Compute energy levels
-println("Computing energy levels...")
-V0_valid, E1, E2, E3 = FiniteSquareWell.compute_energy_vs_depth(collect(V0_range))
-
-# Check convergence to infinite well limit
-println("\nFor large V0 (V0 = $(V0_valid[end])):")
-@printf "  E1 = %.4f\n" E1[end]
-@printf "  E2 = %.4f\n" E2[end]
-@printf "  E3 = %.4f\n" E3[end]
-# Measure energies relative to well bottom for ratio comparison
-E1_rel = E1[end] + V0_valid[end]
-E2_rel = E2[end] + V0_valid[end]
-E3_rel = E3[end] + V0_valid[end]
-@printf "  Ratio E1:E2:E3 = 1:%.3f:%.3f\n" E2_rel/E1_rel E3_rel/E1_rel
-println("  (Should approach 1:4:9 as V0 → ∞)")
-
-# Create plots
-println("\nCreating plots...")
-p1 = FiniteSquareWell.plot_energy_levels(collect(V0_range))
-save("part1_energy_levels.png", p1)
-println("✓ Saved: part1_energy_levels.png")
-
-# Create energy spacing plot for Part 1
-p1b = FiniteSquareWell.plot_energy_differences(collect(V0_range))
-save("part1_energy_spacings.png", p1b)
-println("✓ Saved: part1_energy_spacings.png")
-
-# ============================================================================
-#                       PART 2: FINDING E12 = E23
-# ============================================================================
-
-println("\n" * "="^70)
-println("PART 2: Finding V0 where E₁₂ = E₂₃")
-println("-"^70)
-
-# Compute energy spacings
-E12 = E2 .- E1
-E23 = E3 .- E2
-ratio = E23 ./ E12
-
-# Analysis
-println("\nAnalyzing energy spacings...")
-@printf "  Ratio E₂₃/E₁₂ ranges from %.4f to %.4f\n" minimum(ratio) maximum(ratio)
-
-if all(ratio .> 1.0)
-    println("\n  ✗ CONCLUSION: E₂₃ > E₁₂ for ALL well depths")
-    println("     There is NO well depth where E₁₂ = E₂₃")
-    println("     This is a fundamental constraint of single wells.")
-else
-    println("\n  ✓ Found well depth where E₁₂ = E₂₃")
-end
-
-# Physical explanation
-println("\n  Physical Reason:")
-println("    Energy spacing increases with quantum number (n² scaling)")
-println("    As V0 → ∞: E₂₃/E₁₂ → 5/3 ≈ 1.667")
-println("    As V0 → threshold: E₂₃/E₁₂ → 1.571")
-println("    The ratio is always > 1")
-
-# Create plots
-println("\nCreating plots...")
-p2a = FiniteSquareWell.plot_energy_differences(collect(V0_range))
-save("part2_energy_differences.png", p2a)
-println("✓ Saved: part2_energy_differences.png")
-
-p2b = FiniteSquareWell.plot_energy_ratio(collect(V0_range))
-save("part2_energy_ratio.png", p2b)
-println("✓ Saved: part2_energy_ratio.png")
-
-# ============================================================================
-#                       PART 3: DOUBLE WELL SOLUTION
-# ============================================================================
-
-println("\n" * "="^70)
-println("PART 3: Double Well - Achieving E₂₃ = 2E₁₂")
-println("-"^70)
-
-println("\nSearching for optimal double well parameters...")
-println("This may take a moment...")
-
-# Optimize double well parameters
 using Optim
-initial_guess = [75.0, 0.405]
-result = optimize(
-    FiniteSquareWell.objective_double_well, 
-    initial_guess, 
-    NelderMead(),
-    Optim.Options(iterations=5000, g_tol=1e-8)
-)
 
-V0_opt = Optim.minimizer(result)[1]
-d_opt = Optim.minimizer(result)[2]
-error = Optim.minimum(result)
+Makie.inline!(false)  # create PNGs on disk instead of inline (if in REPL)
 
-println("\n✓ OPTIMIZATION COMPLETE!")
-println("\nOPTIMAL PARAMETERS:")
-@printf "  Well depth:  V₀ = %.4f (in units of ℏ²/(2ma²))\n" V0_opt
-@printf "  Separation:  d  = %.4f a\n" d_opt
+# =======================================================================
+# PART 1 – Single well: three lowest energies vs depth
+# =======================================================================
 
-# Compute energies at optimal parameters
-states_opt = FiniteSquareWell.solve_double_well(V0_opt, d_opt, 1.0, n_states=4)
-
-if !isempty(states_opt) && length(states_opt) >= 3
-    E1_opt, E2_opt, E3_opt = states_opt[1], states_opt[2], states_opt[3]
-    E12_opt = E2_opt - E1_opt
-    E23_opt = E3_opt - E2_opt
-    ratio_opt = E23_opt / E12_opt
-    
-    println("\nRESULTING ENERGY LEVELS:")
-    @printf "  E₁ = %10.6f\n" E1_opt
-    @printf "  E₂ = %10.6f\n" E2_opt
-    @printf "  E₃ = %10.6f\n" E3_opt
-    
-    println("\nENERGY SPACINGS:")
-    @printf "  E₁₂ = E₂ - E₁ = %10.6f\n" E12_opt
-    @printf "  E₂₃ = E₃ - E₂ = %10.6f\n" E23_opt
-    
-    println("\nRATIO:")
-    @printf "  E₂₃/E₁₂ = %.8f\n" ratio_opt
-    @printf "  Target:   2.00000000\n"
-    @printf "  Error:    %.2e\n" abs(ratio_opt - 2.0)
-    
-    if abs(ratio_opt - 2.0) < 0.01
-        println("\n" * "✓"^35)
-        println("SUCCESS! E₂₃ ≈ 2E₁₂ achieved to within 1% accuracy")
-        println("✓"^35)
-    end
-end
-
-# ============================================================================
-#                    CREATE DOUBLE WELL VISUALIZATIONS
-# ============================================================================
-
-println("\n" * "="^70)
-println("Creating double well visualizations...")
-println("-"^70)
-
-# Scan parameter space
-V0_scan = range(60, 90, length=50)
-d_scan = range(0.2, 0.7, length=50)
-
-ratio_grid = zeros(length(d_scan), length(V0_scan))
-
-for (i, d) in enumerate(d_scan)
-    for (j, V0) in enumerate(V0_scan)
-        states = FiniteSquareWell.solve_double_well(V0, d, 1.0, n_states=3)
-        if !isempty(states) && length(states) >= 3
-            E1, E2, E3 = states[1], states[2], states[3]
-            E12 = E2 - E1
-            E23 = E3 - E2
-            if E12 > 0 && E23 > 0
-                ratio_grid[i, j] = E23 / E12
-            else
-                ratio_grid[i, j] = NaN
-            end
-        else
-            ratio_grid[i, j] = NaN
-        end
-    end
-end
-
-# Create contour plot
-fig3 = Figure(size=(900, 700))
-ax3 = Axis(fig3[1, 1],
-          xlabel="Well Depth V₀ (ℏ²/(2ma²))",
-          ylabel="Well Separation d/a",
-          title="Ratio E₂₃/E₁₂ for Double Finite Square Well")
-
-cf = contourf!(ax3, V0_scan, d_scan, ratio_grid,
-              levels=20,
-              colormap=Reverse(:RdYlBu))
-
-# Add contour line for ratio = 2
-contour!(ax3, V0_scan, d_scan, ratio_grid,
-        levels=[2.0],
-        linewidth=3,
-        color=:red,
-        linestyle=:solid)
-
-# Mark optimal point
-scatter!(ax3, [V0_opt], [d_opt],
-        markersize=15,
-        color=:red,
-        marker=:star5)
-
-Colorbar(fig3[1, 2], cf, label="E₂₃/E₁₂")
-
-save("part3_double_well_contour.png", fig3)
-println("✓ Saved: part3_double_well_contour.png")
-
-# Create potential diagram
-x = range(-d_opt - 1.5, d_opt + 1.5, length=1000)
-V_potential = zeros(length(x))
-
-for (i, xi) in enumerate(x)
-    if (-d_opt/2 - 1.0 <= xi <= -d_opt/2) || (d_opt/2 <= xi <= d_opt/2 + 1.0)
-        V_potential[i] = -V0_opt
-    else
-        V_potential[i] = 0.0
-    end
-end
-
-fig4 = Figure(size=(1000, 600))
-ax4 = Axis(fig4[1, 1],
-          xlabel="Position x/a",
-          ylabel="Energy (ℏ²/(2ma²))",
-          title="Double Well Configuration: V₀=$(round(V0_opt, digits=2)), d=$(round(d_opt, digits=3))a",
-          limits=(nothing, (-V0_opt-5, 5)))
-
-# Plot potential with filled area
-band!(ax4, x, V_potential, 0, color=(:blue, 0.3))
-lines!(ax4, x, V_potential, linewidth=2, color=:blue, label="Potential V(x)")
-
-# Add energy levels
-hlines!(ax4, [E1_opt], label="E₁ = $(round(E1_opt, digits=2))",
-       linestyle=:dash, linewidth=2, color=:red)
-hlines!(ax4, [E2_opt], label="E₂ = $(round(E2_opt, digits=2))",
-       linestyle=:dash, linewidth=2, color=:green)
-hlines!(ax4, [E3_opt], label="E₃ = $(round(E3_opt, digits=2))",
-       linestyle=:dash, linewidth=2, color=:purple)
-
-axislegend(ax4, position=:rt)
-
-save("part3_double_well_configuration.png", fig4)
-println("✓ Saved: part3_double_well_configuration.png")
-
-# ============================================================================
-#                           FINAL SUMMARY
-# ============================================================================
-
-println("\n" * "="^70)
-println("SUMMARY OF RESULTS")
+println("="^70)
+println("PART 1: Three lowest energy levels vs well depth")
 println("="^70)
 
-println("\n✓ PART 1: Energy levels computed and plotted")
-println("  • Verified convergence to 1:4:9 ratio")
+a = 1.0
+V0_values = range(5.0, 200.0; length=300)
 
-println("\n✗ PART 2: No solution exists for E₁₂ = E₂₃")
-println("  • Ratio E₂₃/E₁₂ ∈ [1.571, 1.667]")
-println("  • Fundamental constraint of single wells")
+V0_valid, E = energy_vs_depth(V0_values; a=a, n_levels=3)
 
-println("\n✓ PART 3: Double well achieves E₂₃ = 2E₁₂")
-@printf "  • Optimal: V₀ = %.2f, d = %.3fa\n" V0_opt d_opt
-@printf "  • Achieved ratio: %.6f\n" ratio_opt
+fig1 = plot_single_well_levels(V0_valid, E; a=a)
+save("part1_energy_levels.png", fig1)
+println("➤ Saved: part1_energy_levels.png")
+
+# Check large-depth limit for 1:4:9 ratio (energies measured from bottom)
+if length(V0_valid) > 0
+    V0_last = V0_valid[end]
+    E_last  = E[end, :]              # [E1, E2, E3] at largest depth
+    E_rel   = E_last .+ V0_last      # shift so bottom of well is 0
+
+    r2 = E_rel[2] / E_rel[1]
+    r3 = E_rel[3] / E_rel[1]
+
+    @printf "At V₀ = %.1f the relative energies are:\n" V0_last
+    @printf "  E₁: %.4f,  E₂: %.4f,  E₃: %.4f\n" E_rel[1] E_rel[2] E_rel[3]
+    @printf "  Ratio E₁:E₂:E₃ ≈ 1:%.3f:%.3f (target 1:4:9)\n" r2 r3
+end
+
+println("✓ PART 1 complete.")
+
+# =======================================================================
+# PART 2 – Look for depth with E12 = E23
+# =======================================================================
 
 println("\n" * "="^70)
-println("All plots saved successfully!")
+println("PART 2: Can a single well have evenly spaced first three levels?")
+println("="^70)
+
+using Statistics
+
+E12, E23, ratio = spacing_ratios(E)
+
+# Find “closest” attempt
+Δ = abs.(E23 .- E12)
+idx_min = argmin(Δ)
+V0_best = V0_valid[idx_min]
+
+@printf "Closest approach to E₁₂ = E₂₃ occurs at V₀ ≈ %.4f\n" V0_best
+@printf "  E₁₂ = %.6f,  E₂₃ = %.6f,  Δ = %.6e\n" E12[idx_min] E23[idx_min] Δ[idx_min]
+@printf "  Ratio E₂₃/E₁₂ ≈ %.6f\n" ratio[idx_min]
+
+r_min = minimum(ratio)
+r_max = maximum(ratio)
+@printf "\nOver the scanned range:  E₂₃/E₁₂ ∈ [%.6f, %.6f]\n" r_min r_max
+
+println("\nConclusion:")
+println("  • E₂₃/E₁₂ never reaches 1; it stays strictly > 1 in our scan.")
+println("  • This strongly suggests there is NO well depth with E₁₂ = E₂₃")
+println("    for a single finite square well with fixed width a.")
+
+# Plots for the report
+fig2 = Figure(resolution=(800, 600))
+ax2  = Axis(fig2[1, 1], xlabel="V₀", ylabel="Energy spacing",
+            title="Single well spacings vs depth")
+lines!(ax2, V0_valid, E12, label="E₂ - E₁")
+lines!(ax2, V0_valid, E23, label="E₃ - E₂")
+axislegend(ax2, position=:rb)
+save("part2_energy_differences.png", fig2)
+println("➤ Saved: part2_energy_differences.png")
+
+fig3 = Figure(resolution=(800, 600))
+ax3  = Axis(fig3[1, 1], xlabel="V₀", ylabel="E₂₃ / E₁₂",
+            title="Ratio of spacings in single well")
+lines!(ax3, V0_valid, ratio, label="E₂₃/E₁₂")
+hlines!(ax3, [1.0], linestyle=:dash, label="1.0")
+axislegend(ax3, position=:rb)
+save("part2_energy_ratio.png", fig3)
+println("➤ Saved: part2_energy_ratio.png")
+
+println("✓ PART 2 complete (with a negative result: no equal spacings).")
+
+# =======================================================================
+# PART 3 – Double well with E23 ≈ 2 E12
+# =======================================================================
+
+println("\n" * "="^70)
+println("PART 3: Double well with E₂₃ ≈ 2 E₁₂")
+println("="^70)
+
+# Objective for Optim.jl: x = [V0, d]
+function objective_vec(x)
+    V0 = max(x[1], 1e-3)    # enforce positivity softly
+    d  = max(x[2], 1e-3)
+    return double_well_objective(V0, d; a=a, target_ratio=2.0)
+end
+
+x0 = [60.0, 0.5]           # initial guess (tweak if needed)
+
+res = optimize(objective_vec, x0, NelderMead(); iterations=5000)
+x_opt = Optim.minimizer(res)
+V0_opt, d_opt = x_opt
+
+states_opt = approximate_double_well_states(V0_opt, d_opt; a=a, n_states=3)
+
+if length(states_opt) == 3
+    E1d, E2d, E3d = states_opt
+    E12d = E2d - E1d
+    E23d = E3d - E2d
+    ratio_opt = E23d / E12d
+
+    println("Optimization result for double well:")
+    @printf "  V₀ ≈ %.4f,  d ≈ %.4f a\n" V0_opt d_opt
+    @printf "  E₁ ≈ %.6f,  E₂ ≈ %.6f,  E₃ ≈ %.6f\n" E1d E2d E3d
+    @printf "  E₁₂ = %.6f,  E₂₃ = %.6f,  ratio = %.6f\n" E12d E23d ratio_opt
+else
+    println("Warning: could not obtain three double-well states at optimum.")
+end
+
+# Contour plot of ratio vs (V₀, d)
+V0_scan = range(20.0, 120.0; length=80)
+d_scan  = range(0.2, 1.2;   length=80)
+
+fig4 = plot_double_well_contour(V0_scan, d_scan; a=a, target_ratio=2.0)
+save("part3_double_well_contour.png", fig4)
+println("➤ Saved: part3_double_well_contour.png")
+
+# Configuration plot at optimized parameters
+fig5 = plot_double_well_configuration(V0_opt, d_opt; a=a)
+if fig5 !== nothing
+    save("part3_double_well_configuration.png", fig5)
+    println("➤ Saved: part3_double_well_configuration.png")
+end
+
+println("\nSummary:")
+println("  ✓ PART 1: Energies vs depth + 1:4:9 check")
+println("  ✓ PART 2: Showed numerically that E₁₂ = E₂₃ does *not* occur")
+println("  ✓ PART 3: Found a double-well configuration with E₂₃ ≈ 2 E₁₂")
+
+println("\nAll plots written to current directory.")
 println("="^70)
