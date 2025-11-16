@@ -283,6 +283,12 @@ These transcendental equations can be visualized as intersections:
 - Odd states occur in intervals $[(n+1/2)\pi, (n+1)\pi]$
 - Number of bound states: $n \approx z_0/\pi$
 
+![](<part1_energy_levels.png>) 
+***Figure: 1:** The graph above shows the transcendental equations for a well depth between V₀ = 23 and V₀ = 400. This confirming that the first three bound states have differnt increasing energies. It also shows a linear correlation between well depth and energy levels.*
+
+![](<part1_energy_spacings.png>)
+***Figure: 2:** The graph above shows the energy levels and spacings for a well depth between V₀ = 23 and V₀ = 400 The energy spacing shown above confirms the assumtion that the energy state difference between E1 and E2 does not equal the difference between E2 and E3. Each diffence eventually assoymptotically approaches a constant value as the well depth increases.*
+
 ### Summary of Part 1
 
 This produces a energy ratio of **1:4.0:8.998**. Thus confirming the expected ratio of 1:4:9 for the first three bound states in a finite square well.
@@ -422,7 +428,8 @@ for all $V_0$ where three bound states exist.
 **Minimum occurs at threshold, maximum at infinite limit.**
 
 The ratio **never equals 1** and **never exceeds the infinite well value of 5/3**.
-
+![](<part2_energy_ratio.png>)
+***Figure 3:** The graph above shows the ratio of E₂₃ to E₁₂ for well depths ranging from V₀ = 22.21 to V₀ = 2000. The graph confirms that the ratio remains between approximately 1.571 and 1.667, never reaching 1.*
 ### Summary of Part 2
 
 **Question:** Can we find $V_0$ such that $E_{12} = E_{23}$?
@@ -561,6 +568,9 @@ Minimize: $f(V_0, d) = |E_{23}/E_{12} - 2|$
 - Works well for non-smooth functions
 - Handles constraints naturally
 - Good for low-dimensional problems (we have 2D)
+
+![](<part3_double_well_configuration.png>)
+***Figure 4:** The graph above shows the double finite square well configuration with well depth V₀ and separation distance d. This configuration allows for independent tuning of energy level splittings through the parameter d.*
 
 ### Summary of Part 3
 Using the optimization method, we found:
